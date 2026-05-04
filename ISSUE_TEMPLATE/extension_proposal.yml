@@ -1,0 +1,107 @@
+name: 🆕 Propose a New Extension
+description: Propose adding a new extension to the Experience Extension Community organization.
+title: "Extension Proposal: <name>"
+labels: ["extension-proposal", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for considering contributing a new extension! This proposal helps us avoid duplication, surface collaboration opportunities, and align on scope before you build.
+
+        **Note:** You don't need approval to *start building* — fork the template and go. This proposal helps when you're ready to publish into the community organization.
+
+  - type: input
+    id: name
+    attributes:
+      label: Extension name
+      placeholder: Degree Progress Card
+    validations:
+      required: true
+
+  - type: input
+    id: repo
+    attributes:
+      label: Suggested repo name
+      description: Per naming convention — experience-card-{name}, experience-page-{name}, or experience-extension-{name}
+      placeholder: experience-card-degree-progress
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What does this extension do?
+      description: Brief description of the user-facing functionality.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: type
+    attributes:
+      label: Type
+      options:
+        - Card only
+        - Page only
+        - Card + Page
+        - Multi-component extension
+    validations:
+      required: true
+
+  - type: dropdown
+    id: erp
+    attributes:
+      label: ERP compatibility
+      multiple: true
+      options:
+        - Banner
+        - Colleague
+        - PowerCampus
+        - Quercus
+        - ERP-agnostic
+    validations:
+      required: true
+
+  - type: textarea
+    id: data
+    attributes:
+      label: Data sources
+      description: What APIs does this extension call? Ethos GraphQL, Data Connect serverless, BPAPIs, custom institutional API?
+    validations:
+      required: true
+
+  - type: input
+    id: institution
+    attributes:
+      label: Originating institution
+      placeholder: Florida Polytechnic University
+    validations:
+      required: true
+
+  - type: input
+    id: maintainer
+    attributes:
+      label: Proposed maintainer(s)
+      description: GitHub handle(s) of the people committing to maintain this.
+      placeholder: "@your-handle"
+    validations:
+      required: true
+
+  - type: textarea
+    id: existing
+    attributes:
+      label: Does it already exist somewhere?
+      description: Is this currently a private repo that you're moving into the community? Or starting fresh?
+
+  - type: checkboxes
+    id: commitments
+    attributes:
+      label: Commitments
+      options:
+        - label: I will use the official template repo as the starting point.
+          required: true
+        - label: I will follow the Promotion-to-Org Checklist before requesting promotion.
+          required: true
+        - label: I will license the extension under Apache 2.0.
+          required: true
+        - label: I have authority from my institution to release this code.
+          required: true

@@ -1,0 +1,113 @@
+# Reusable CI workflow used by every extension repo in the org.
+#
+# Extension repos call this from their own .github/workflows/ci.yml like:
+#
+#   jobs:
+#     ci:
+#       uses: experience-extension-community/.github/.github/workflows/reusable-ci.yml@main
+#       with:
+#         node-version-matrix: '["20", "22"]'
+#
+# Improvements made here propagate to every repo on next workflow run.
+
+name: Reusable CI
+
+on:
+  workflow_call:
+    inputs:
+      node-version-matrix:
+        description: 'JSON array of Node versions to test against'
+        required: false
+        type: string
+        default: '["20", "22"]'
+      run-build:
+        description: 'Whether to run the build step'
+        required: false
+        type: boolean
+        default: true
+      coverage-upload:
+        description: 'Whether to upload coverage to Codecov'
+        required: false
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: npm
+      - run: npm ci
+      - name: ESLint
+        run: npm run lint
+      - name: Prettier check
+        run: npm run format:check
+      - name: SPDX header check
+        run: |
+          missing=$(find src -type f \( -name "*.js" -o -name "*.jsx" \) -exec grep -L "SPDX-License-Identifier:" {} \;)
+          if [ -n "$missing" ]; then
+            echo "Files missing SPDX-License-Identifier header:"
+            echo "$missing"
+            exit 1
+          fi
+
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: ${{ fromJSON(inputs.node-version-matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+      - run: npm ci
+      - name: Run tests with coverage
+        run: npm run test:ci
+      - name: Upload coverage to Codecov
+        if: ${{ inputs.coverage-upload && matrix.node-version == fromJSON(inputs.node-version-matrix)[0] }}
+        uses: codecov/codecov-action@v4
+        with:
+          fail_ci_if_error: false
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+  a11y:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: npm
+      - run: npm ci
+      - name: jest-axe accessibility suite
+        run: npm run test:a11y
+
+  build:
+    if: ${{ inputs.run-build }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: npm
+      - run: npm ci
+      - name: Build extension bundle
+        run: npm run build
+      - name: Verify build artifacts
+        run: |
+          if [ ! -d "dist" ] && [ ! -d "build" ]; then
+            echo "No build output directory found (expected dist/ or build/)"
+            exit 1
+          fi

@@ -1,0 +1,52 @@
+name: 💡 Feature Request
+description: Suggest a new feature or enhancement for an existing extension.
+labels: ["enhancement", "needs-triage"]
+body:
+  - type: input
+    id: extension
+    attributes:
+      label: Affected extension / repo
+      placeholder: experience-card-degree-progress
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+      description: Describe the user / institutional need driving this request.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: What would you like to see happen? Optional — focus on the problem if you don't have a specific solution in mind.
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Any workarounds or other approaches you've considered.
+
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Who benefits?
+      options:
+        - Just my institution
+        - Several institutions
+        - Most or all institutions running this extension
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Confirmation
+      options:
+        - label: I have searched existing issues and confirmed this is not a duplicate.
+          required: true
+        - label: I have read the [Code of Conduct](https://github.com/experience-extension-community/.github/blob/main/CODE_OF_CONDUCT.md).
+          required: true

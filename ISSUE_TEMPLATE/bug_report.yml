@@ -1,0 +1,95 @@
+name: 🐞 Bug Report
+description: Report something that isn't working as documented or expected.
+labels: ["bug", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to file a bug report. Clear, reproducible reports get fixed faster.
+
+  - type: input
+    id: extension
+    attributes:
+      label: Affected extension / repo
+      description: Which extension is affected? (Repo name)
+      placeholder: experience-card-degree-progress
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Extension version
+      description: Version of the extension where you observed the bug.
+      placeholder: 1.2.3
+    validations:
+      required: true
+
+  - type: dropdown
+    id: erp
+    attributes:
+      label: ERP environment
+      options:
+        - Banner
+        - Colleague
+        - PowerCampus
+        - Quercus
+        - Other / Not applicable
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: A clear description of what's going wrong.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Step-by-step. Include screenshots or screen recordings if useful.
+      placeholder: |
+        1. Go to ...
+        2. Click ...
+        3. Observe ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Browser, OS, Experience version, anything else relevant.
+      placeholder: |
+        - Browser: Chrome 124
+        - OS: macOS 14
+        - Experience version: 1.42.x
+
+  - type: textarea
+    id: console
+    attributes:
+      label: Console errors / network errors
+      description: Paste any relevant browser console output or failed network requests.
+      render: shell
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Confirmation
+      options:
+        - label: I have searched existing issues and confirmed this is not a duplicate.
+          required: true
+        - label: I have read the extension's README and confirmed this is not a configuration issue.
+          required: true
+        - label: I have read the [Code of Conduct](https://github.com/experience-extension-community/.github/blob/main/CODE_OF_CONDUCT.md).
+          required: true

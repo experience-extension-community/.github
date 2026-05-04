@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 Question or general discussion
+    url: https://github.com/orgs/experience-extension-community/discussions
+    about: Please ask questions in Discussions, not Issues. Issues are for bugs and well-scoped feature requests.
+  - name: 🔒 Security vulnerability
+    url: https://github.com/experience-extension-community/.github/blob/main/SECURITY.md
+    about: Do NOT file security vulnerabilities as public issues. See our Security Policy for private reporting.
+  - name: 📚 Ellucian platform / SDK questions
+    url: https://github.com/ellucian-developer
+    about: For questions about Ellucian Experience itself, the Path Design System, or Ethos APIs, see Ellucian's official Developer Community.
