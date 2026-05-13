@@ -35,7 +35,7 @@ _(Cards and pages serving students directly.)_
 
 | Status | Extension | Description | ERP | Maintainer |
 |---|---|---|---|---|
-| _No entries yet — be the first to contribute!_ |||||
+| 🟡 | [`user-information-ids`](https://github.com/experience-extension-community/user-information-ids) | Displays a person's identification credentials (Banner ID, Workday/EMPL ID, student/employee NetIDs) from Ethos Data Connect. Card + page, role-aware, parameterizable. | Banner | Florida Polytechnic University |
 
 ## Advising
 
